@@ -1,4 +1,5 @@
 {
-  "seq": 0,
-  "action": "stop"
+  "seq": 1,
+  "action": "inner",
+  "level": 2
 }
