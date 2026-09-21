@@ -1,8 +1,8 @@
 {
-  "seq": 58,
+  "seq": 59,
   "action": "alternate",
   "target": "inner",
   "level1": 3,
   "level2": 4,
-  "interval": 10
+  "interval": 2
 }
