@@ -1,0 +1,79 @@
+{
+  "name": "ter_guzhe_scene_v1",
+  "version": 1,
+  "mode": "dual_channel_timeline",
+  "note": "Story-derived rhythm preset. Public and moving-vehicle phases are locked off; active phases are for private stationary use only.",
+  "channels": {
+    "inner": {"min": 1, "max": 6},
+    "outer": {"min": 1, "max": 6}
+  },
+  "safety": {
+    "public_lockout": true,
+    "vehicle_motion_lockout": true,
+    "emergency_stop": true,
+    "stop_words": ["red"],
+    "triple_tap_stop": true,
+    "on_stop": {"inner": "off", "outer": "off"}
+  },
+  "phases": [
+    {
+      "id": "public_hold",
+      "trigger": "public_space",
+      "inner": "off",
+      "outer": "off",
+      "transition": "wait_until_private"
+    },
+    {
+      "id": "transit_hold",
+      "trigger": "vehicle_moving",
+      "inner": "off",
+      "outer": "off",
+      "transition": "wait_until_stationary_private"
+    },
+    {
+      "id": "private_intro",
+      "trigger": "stationary_private_confirmed",
+      "steps": [
+        {"seconds": 8, "inner": 1, "outer": "off"},
+        {"seconds": 4, "inner": 3, "outer": "off"},
+        {"seconds": 8, "inner": 1, "outer": "off"}
+      ]
+    },
+    {
+      "id": "private_cycle",
+      "repeat": 3,
+      "steps": [
+        {"seconds": 10, "inner": 2, "outer": 1},
+        {"seconds": 4, "inner": 4, "outer": 3},
+        {"seconds": 4, "inner": "off", "outer": "off"},
+        {"seconds": 7, "inner": 3, "outer": "off"}
+      ]
+    },
+    {
+      "id": "private_peak",
+      "steps": [
+        {"seconds": 6, "inner": 4, "outer": 3},
+        {"seconds": 3, "inner": 5, "outer": 4},
+        {"seconds": 8, "inner": 2, "outer": 1}
+      ]
+    },
+    {
+      "id": "cooldown",
+      "steps": [
+        {"seconds": 15, "inner": 1, "outer": "off"},
+        {"seconds": 1, "inner": "off", "outer": "off"}
+      ],
+      "end": true
+    }
+  ],
+  "current_toy_watch": {
+    "command_file": "command.json",
+    "known_sequence_shape": {
+      "action": "sequence",
+      "target": "inner|outer",
+      "steps": "level:seconds,level:seconds,..."
+    },
+    "compatibility": "partial",
+    "reason": "The current watcher is known to sequence one target at a time, so this dual-channel timeline is stored as a preset and is not written to command.json automatically."
+  }
+}
