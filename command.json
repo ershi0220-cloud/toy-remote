@@ -1,4 +1,6 @@
 {
-  "seq": 72,
-  "action": "stop"
+  "seq": 73,
+  "action": "sequence",
+  "target": "inner",
+  "steps": "1:3"
 }
